@@ -1,83 +1,93 @@
 #!/usr/bin/python3
-"""Test base Model"""
+"""
+This module is used to test the BaseModel class
+"""
+
 
 import unittest
 from models.base_model import BaseModel
 from unittest import mock
 
 
-class Test_Base_Model(unittest.TestCase):
+class TestBaseModel(unittest.TestCase):
     """
+    Test for the class 'BaseModel'
     """
 
     def setUp(self):
         """
         """
-        self.object = BaseModel()
+        self.Object = BaseModel()
 
-    def test_init(self):
+    def testInit(self):
         """
         """
-        self.assertIsInstance(self.object, BaseModel)
+        self.assertIsInstance(self.Object, BaseModel)
 
-    def attr(self):
+    def testAttr(self):
         """
         """
-        object_string = str(self.object)
+        obj_str = str(self.Object)
         obj_attr = ["id", "created_at", "updated_at"]
-        counter = 0
+        num = 0
         for attr in obj_attr:
-            if attr in object_string:
-                counter += 1
-        self.assertEqual(counter, 3)
+            if attr in obj_str:
+                num += 1
+        self.assertEqual(num, 3)
 
-    def arg_class(self):
-        """testing a class created with arguments"""
-        class1 = BaseModel(__class__="test", id="123456789")
-        self.assertEqual(type(class1), BaseModel)
+    def argClass(self):
+        """
+        """
+        class_1 = BaseModel(__class__='test', id='555666777')
+        self.assertEqual(type(class_1), BaseModel)
 
-    def kawargs(self):
-        """testing kawargs"""
-        class2 = BaseModel(name="pepito", age=18)
-        test_dic = class2.to_dict()
+    def testKwargs(self):
+        """
+        """
+        class_2 = BaseModel(name="prueba", age=15)
+        test_dict = class_2.to_dict()
         attributes = ["name", "age", "__class__"]
-        attr_dic = list(test_dic.keys())
-        self.assertCountEqual(attr_dic, attributes)
+        attr_dict = list(test_dict.keys())
+        self.assertCountEqual(attr_dict, attributes)
 
     @mock.patch("models.storage")
-    def save(self, mock_engine):
-        """testing the save method (updated dates)"""
-        first_update = self.object.updated_at
-        self.object.save()
-        second_update = self.object.updated_at
+    def testSave(self, mock_engine):
+        """
+        """
+        first_update = self.Object.updated_at
+        self.Object.save()
+        second_update = self.Object.updated_at
         self.assertNotEqual(first_update, second_update)
         self.assertTrue(mock_engine.save.called)
 
-    def to_dict(self):
-        """testing the transform from object to dictionary"""
-        self.object.name = "poncho"
-        dict_object = self.object.to_dict()
-        attributes = ["id", "name", "created_at", "updated_at", "__class__"]
-        new_attr = list(dict_object.keys)
-        self.assertCountEqual(new_attr, attributes)
+    def test_to_dict(self):
+        """
+        """
+        self.Object.name = "Tulio"
+        dic_obj = self.Object.to_dict()
+        attributes = ["id", "name", "crated_at", "updated_ at", "__class__"]
+        real_attr = list(dic_obj.keys())
+        self.assertCountEqual(real_attr, attributes)
 
-    def value_dic(self):
-        """testing the values of the dictionary"""
+    def test_values_dict(self):
+        """
+        """
         time_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.object.name = "poncho"
-        dict_object = self.object.to_dict()
-        self.assertEqual(dict_object["name"], "poncho")
-        self.assertEqual(dict_object["created_at"],
-                         self.object.created_at.strftime(time_format))
-        self.assertEqual(dict_object["updated_at"],
-                         self.object.created_at.strftime(time_format))
-        self.assertEqual(dict_object["__class__"], "BaseModel")
+        self.Object.name = "Tulio"
+        dic_obj = self.Object.to_dict()
+        self.assertEqual(dic_obj["name"], "Tulio")
+        self.assertEqual(dic_obj["crated_at"],
+                         self.Object.created_at.strftime(time_format))
+        self.assertEqual(dic_obj["updated_at"],
+                         self.Object.updated_at.strftime(time_format))
+        self.assertEqual(dic_obj["__class__"], "BaseModel")
 
     def test_str(self):
-        """testing the string of the dictionary"""
-        object_str = f"[BaseModel] ({self.object.id}) {self.object.__dict__}"
-        self.assertEqual(object_str, str(self.object))
+        """
+        """
+        obj_str = f"[BaseModel] ({self.Object.id}) {self.Object.__dict__}"
+        self.assertEqual(obj_str, str(self.Object))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
