@@ -11,8 +11,13 @@ import os
 class TestAmenity(unittest.TestCase):
     """This class do a test for Amenity class"""
 
-    def config(self):
+    def setUp(self):
         """set up test"""
+        pass
+
+    def tearDown(self):
+        """reset storage and Tear down test"""
+        self.resetStorage()
         pass
 
     def test_instance(self):
