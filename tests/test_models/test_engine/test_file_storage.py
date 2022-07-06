@@ -34,11 +34,11 @@ class TestFileStorage(unittest.TestCase):
         pass
 
     def test_instance(self):
-        """"""
+        """Test instance"""
         self.assertEqual(type(storage).__name__, "FileStorage")
 
     def test_attr(self):
-        """"""
+        """Test attributte"""
         self.resetStorage()
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
@@ -158,7 +158,7 @@ class TestFileStorage(unittest.TestCase):
         self.prueba_new("Review")
 
     def prueba_save(self, line):
-        """"""
+        """Test for method save"""
         self.resetStorage()
         new_obj = eval(line)()
         storage.new(new_obj)
@@ -201,7 +201,7 @@ class TestFileStorage(unittest.TestCase):
         self.prueba_save("Review")
 
     def prueba_reload(self, line):
-        """"""
+        """Test for Method Reload"""
         self.resetStorage()
         self.assertEqual(FileStorage._FileStorage__objects, {})
         new_reload = eval(line)()
