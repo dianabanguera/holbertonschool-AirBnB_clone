@@ -11,6 +11,10 @@ import os
 class TestAmenity(unittest.TestCase):
     """This class do a test for Amenity class"""
 
+    def config(self):
+        """set up test"""
+        pass
+
     def test_instance(self):
         """Test of instantiation of Amenity class"""
         obj = Amenity()
