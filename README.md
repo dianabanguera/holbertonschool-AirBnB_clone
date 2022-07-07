@@ -1,5 +1,5 @@
 # AirBnB clone - The console
-![plot](consola.png)
+![plot](logo_air.jpg)
 
 ### First step: Write a command interpreter to manage your AirBnB objects.
 This is the first step towards building your first full web application: the AirBnB clone. This first step is very important because you will use what you build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
@@ -83,4 +83,4 @@ e.g., For models/user.py, unit tests must be in: tests/test_models/test_user.py
 - We strongly encourage you to work together on test cases, so that you don’t miss any edge case
 
 ## Execution
-![plot](execution.jpg)
+![plot](consola.png)
