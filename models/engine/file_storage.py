@@ -45,6 +45,11 @@ class FileStorage:
                 for k, v in dic.items():
                     self.__objects[k] = eval(v["__class__"])(**v)
 
+    def class_dict(self):
+        """Returns the class attribute '_-classes <dictionary>'
+        wich strores the available Classes for all modules"""
+        return FileStorage.__classes
+
     def attributes(self):
         """Method that contain all attributes"""
         attributes = {
