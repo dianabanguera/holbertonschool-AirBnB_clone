@@ -20,6 +20,7 @@ class TestFileStorage(unittest.TestCase):
     """The test class"""
     def setUp(self):
         """Method setup"""
+        self.storage = FileStorage()
         pass
 
     def resetStorage(self):
@@ -44,7 +45,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
         self.assertEqual(getattr(FileStorage, "_FileStorage__objects"), {})
 
-    def prueba_all(self, line):
+    def test_all(self, line):
         """Method testing"""
         self.resetStorage()
         object = eval(line)()
@@ -81,7 +82,7 @@ class TestFileStorage(unittest.TestCase):
         """Tests all() method for Review."""
         self.prueba_all("Review")
 
-    def prueba_all_mult(self, line):
+    def test_all_mult(self, line):
         """Method testing all multiply"""
         self.resetStorage()
         dict_object = [eval(line)() for i in range(1000)]
@@ -120,7 +121,7 @@ class TestFileStorage(unittest.TestCase):
         """Tests all_multiple() method for Review."""
         self.prueba_all_mult("Review")
 
-    def prueba_new(self, line):
+    def test_new(self, line):
         """Method testing new"""
         self.resetStorage()
         new = eval(line)()
@@ -157,7 +158,7 @@ class TestFileStorage(unittest.TestCase):
         """Tests new() method for Review."""
         self.prueba_new("Review")
 
-    def prueba_save(self, line):
+    def test_save(self, line):
         """Test for method save"""
         self.resetStorage()
         new_obj = eval(line)()
@@ -200,7 +201,7 @@ class TestFileStorage(unittest.TestCase):
         """Tests save() method for Review."""
         self.prueba_save("Review")
 
-    def prueba_reload(self, line):
+    def test_reload(self, line):
         """Test for Method Reload"""
         self.resetStorage()
         self.assertEqual(FileStorage._FileStorage__objects, {})
