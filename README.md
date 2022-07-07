@@ -85,5 +85,8 @@ e.g., For models/user.py, unit tests must be in: tests/test_models/test_user.py
 ## Execution
 ![plot](consola.png)
 
-## Test
+## Test interactive
+![plot](test_interactive.png)
+
+## Test no interactive
 ![plot](test_no_interactive.png)
