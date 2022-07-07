@@ -38,6 +38,22 @@ class TestFileStorage(unittest.TestCase):
         """Test instance"""
         self.assertEqual(type(storage).__name__, "FileStorage")
 
+    def test_init_no_args(self):
+        """Tests __init__ with no arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            FileStorage.__init__()
+        msg = "descriptor '__init__' of 'object' object needs an argument"
+        self.assertEqual(str(e.exception), msg)
+
+    def test_init_many_args(self):
+        """Tests __init__ with many arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            b = FileStorage(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+        msg = "FileStorage() takes no arguments"
+        self.assertEqual(str(e.exception), msg)
+
     def test_attr(self):
         """Test attributte"""
         self.resetStorage()
@@ -45,8 +61,8 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
         self.assertEqual(getattr(FileStorage, "_FileStorage__objects"), {})
 
-    def test_all(self, line):
-        """Method testing"""
+    def prueba_all_(self, line):
+        """"""
         self.resetStorage()
         object = eval(line)()
         storage.new(object)
@@ -54,75 +70,91 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(key in storage.all())
         self.assertEqual(storage.all()[key], object)
 
-    def test_all_base_model(self):
+    def test_all__base_model(self):
         """Tests all() method for BaseModel."""
+        self.prueba_all_("BaseModel")
+
+    def test_all__user(self):
+        """Tests all() method for User."""
+        self.prueba_all_("User")
+
+    def test_all__state(self):
+        """Tests all() method for State."""
+        self.prueba_all_("State")
+
+    def test_all__city(self):
+        """Tests all() method for City."""
+        self.prueba_all_("City")
+
+    def test_all__amenity(self):
+        """Tests all() method for Amenity."""
+        self.prueba_all_("Amenity")
+
+    def test_all__place(self):
+        """Tests all() method for Place."""
+        self.prueba_all_("Place")
+
+    def test_all__review(self):
+        """Tests all() method for Review."""
+        self.prueba_all_("Review")
+
+    def prueba_all(self, line):
+        """Test for Method all"""
+        self.resetStorage()
+        dict_objects = [eval(line)() for i in range(1000)]
+        [storage.new(obj) for obj in dict_objects]
+        self.assertEqual(len(dict_objects), len(storage.all()))
+        for s in dict_objects:
+            key = f"{type(s).__name__}.{s.id}"
+            self.assertTrue(key in storage.all())
+            self.assertEqual(storage.all()[key], s)
+
+    def test_alliple_base_model(self):
+        """Tests all() method with many objects."""
         self.prueba_all("BaseModel")
 
-    def test_all_user(self):
-        """Tests all() method for User."""
+    def test_alliple_user(self):
+        """Tests all_multiple() method for User."""
         self.prueba_all("User")
 
-    def test_all_state(self):
-        """Tests all() method for State."""
+    def test_alliple_state(self):
+        """Tests all_multiple() method for State."""
         self.prueba_all("State")
 
-    def test_all_city(self):
-        """Tests all() method for City."""
+    def test_alliple_city(self):
+        """Tests all_multiple() method for City."""
         self.prueba_all("City")
 
-    def test_all_amenity(self):
-        """Tests all() method for Amenity."""
+    def test_alliple_amenity(self):
+        """Tests all_multiple() method for Amenity."""
         self.prueba_all("Amenity")
 
-    def test_all_place(self):
-        """Tests all() method for Place."""
+    def test_alliple_place(self):
+        """Tests all_multiple() method for Place."""
         self.prueba_all("Place")
 
-    def test_all_review(self):
-        """Tests all() method for Review."""
+    def test_alliple_review(self):
+        """Tests all_multiple() method for Review."""
         self.prueba_all("Review")
 
-    def test_all_mult(self, line):
-        """Method testing all multiply"""
+    def test_all_no_args(self):
+        """Tests all() with no arguments."""
         self.resetStorage()
-        dict_object = [eval(line)() for i in range(1000)]
-        [storage.new(obj) for obj in dict_object]
-        self.assertEqual(len(dict_object), len(storage.all()))
-        for j in dict_object:
-            key = f"{type(j).__name__}.{j.id}"
-            self.assertTrue(key in storage.all())
-            self.assertEqual(storage.all()[key], j)
+        with self.assertRaises(TypeError) as e:
+            FileStorage.all()
+        msg = "all() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(e.exception), msg)
 
-    def test_all_multiple_base_model(self):
-        """Tests all() method with many objects."""
-        self.prueba_all_mult("BaseModel")
+    def test_all_excess_args(self):
+        """Tests all() with too many arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            FileStorage.all(self, 98)
+        msg = "all() takes 1 positional argument but 2 were given"
+        self.assertEqual(str(e.exception), msg)
 
-    def test_all_multiple_user(self):
-        """Tests all_multiple() method for User."""
-        self.prueba_all_mult("User")
-
-    def test_all_multiple_state(self):
-        """Tests all_multiple() method for State."""
-        self.prueba_all_mult("State")
-
-    def test_all_multiple_city(self):
-        """Tests all_multiple() method for City."""
-        self.prueba_all_mult("City")
-
-    def test_all_multiple_amenity(self):
-        """Tests all_multiple() method for Amenity."""
-        self.prueba_all_mult("Amenity")
-
-    def test_all_multiple_place(self):
-        """Tests all_multiple() method for Place."""
-        self.prueba_all_mult("Place")
-
-    def test_all_multiple_review(self):
-        """Tests all_multiple() method for Review."""
-        self.prueba_all_mult("Review")
-
-    def test_new(self, line):
-        """Method testing new"""
+    def Prueba_new(self, line):
+        """Test for Method new"""
         self.resetStorage()
         new = eval(line)()
         storage.new(new)
@@ -132,34 +164,51 @@ class TestFileStorage(unittest.TestCase):
 
     def test_new_base_model(self):
         """Tests new() method for BaseModel."""
-        self.prueba_new("BaseModel")
+        self.Prueba_new("BaseModel")
 
     def test_new_user(self):
         """Tests new() method for User."""
-        self.prueba_new("User")
+        self.Prueba_new("User")
 
     def test_new_state(self):
         """Tests new() method for State."""
-        self.prueba_new("State")
+        self.Prueba_new("State")
 
     def test_new_city(self):
         """Tests new() method for City."""
-        self.prueba_new("City")
+        self.Prueba_new("City")
 
     def test_new_amenity(self):
         """Tests new() method for Amenity."""
-        self.prueba_new("Amenity")
+        self.Prueba_new("Amenity")
 
     def test_new_place(self):
         """Tests new() method for Place."""
-        self.prueba_new("Place")
+        self.Prueba_new("Place")
 
     def test_new_review(self):
         """Tests new() method for Review."""
-        self.prueba_new("Review")
+        self.Prueba_new("Review")
 
-    def test_save(self, line):
-        """Test for method save"""
+    def test_new_no_args(self):
+        """Tests new() with no arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            storage.new()
+        msg = "new() missing 1 required positional argument: 'obj'"
+        self.assertEqual(str(e.exception), msg)
+
+    def test_new_excess_args(self):
+        """Tests new() with too many arguments."""
+        self.resetStorage()
+        b = BaseModel()
+        with self.assertRaises(TypeError) as e:
+            storage.new(b, 98)
+        msg = "new() takes 2 positional arguments but 3 were given"
+        self.assertEqual(str(e.exception), msg)
+
+    def prueba_save(self, line):
+        """Test for Method save"""
         self.resetStorage()
         new_obj = eval(line)()
         storage.new(new_obj)
@@ -201,7 +250,23 @@ class TestFileStorage(unittest.TestCase):
         """Tests save() method for Review."""
         self.prueba_save("Review")
 
-    def test_reload(self, line):
+    def test_save_no_args(self):
+        """Tests save() with no arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            FileStorage.save()
+        msg = "save() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(e.exception), msg)
+
+    def test_save_excess_args(self):
+        """Tests save() with too many arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            FileStorage.save(self, 98)
+        msg = "save() takes 1 positional argument but 2 were given"
+        self.assertEqual(str(e.exception), msg)
+
+    def prueba_reload(self, line):
         """Test for Method Reload"""
         self.resetStorage()
         self.assertEqual(FileStorage._FileStorage__objects, {})
@@ -239,6 +304,22 @@ class TestFileStorage(unittest.TestCase):
     def test_reload_review(self):
         """Tests reload() method for Review."""
         self.prueba_reload("Review")
+
+    def test_reload_no_args(self):
+        """Tests reload() with no arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            FileStorage.reload()
+        msg = "reload() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(e.exception), msg)
+
+    def test_reload_excess_args(self):
+        """Tests reload() with too many arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            FileStorage.reload(self, 98)
+        msg = "reload() takes 1 positional argument but 2 were given"
+        self.assertEqual(str(e.exception), msg)
 
 
 if __name__ == "__main__":
