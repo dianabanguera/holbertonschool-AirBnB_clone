@@ -49,7 +49,8 @@ class FileStorage:
     def reload(self):
         """Public instance methods deserializes the JSON file"""
         if path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, mode="r", encoding="UTF-8") as file:
+            with open(FileStorage.__file_path, mode="r",
+                      encoding="UTF-8") as file:
                 dic = json.loads(file.read())
                 for k, v in dic.items():
                     FileStorage.__objects[k] = eval(v["__class__"])(**v)

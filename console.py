@@ -146,6 +146,16 @@ class HBNBCommand(cmd.Cmd):
                 elif command[1] == "all":
                     print(self.get_instances(command[0]))
 
+    def get_instances(self, object=""):
+        """Gets the objects of the specified class"""
+        instances = storage.all()
+
+        if object:
+            key = instances.keys()
+            return [str(val) for key, val in instances.items()
+                    if key.startswith(object)]
+        return [str(val) for key, val in instances.items()]
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
