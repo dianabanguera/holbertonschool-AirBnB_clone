@@ -1,45 +1,47 @@
 #!/usr/bin/python3
-"""Unittest module for Amenity class that inherit of BaseModel"""
-import unittest
+"""Test for Amenity inherits for Base Model"""
+
+from datetime import datetime
 from models.amenity import Amenity
 from models.base_model import BaseModel
+import unittest
 from models.engine.file_storage import FileStorage
-from models import storage
 import os
 
 
 class TestAmenity(unittest.TestCase):
-    """This class do a test for Amenity class"""
+    """Class test amenity"""
 
     def setUp(self):
-        """set up test"""
+        """Method setup"""
         pass
 
+    def resetStorage(self):
+        """method reset storage"""
+        FileStorage._FileStorage__objects = {}
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
     def tearDown(self):
-        """reset storage and Tear down test"""
-        self.Reset()
+        """method teardown"""
+        self.resetStorage()
         pass
 
     def test_instance(self):
-        """Test of instantiation of Amenity class"""
-        obj = Amenity()
-        self.assertIsInstance(obj, Amenity)
-        self.assertTrue(issubclass(type(obj), BaseModel))
-        self.assertEqual("<class 'models.amenity.Amenity'>", str(type(obj)))
+        """test instance"""
+        new_object = Amenity()
+        self.assertEqual(str(type(new_object)),
+                         "<class 'models.amenity.Amenity'>")
+        self.assertIsInstance(new_object, Amenity)
+        self.assertTrue(issubclass(type(new_object), BaseModel))
 
-    def test_attribute(self):
-        """test that do test of attributes in Amenity class"""
-        att = storage.attributes()["Amenity"]
-        obj = Amenity()
-        for key, value in att.items():
-            self.assertTrue(hasattr(obj, key))
-            self.assertEqual(type(getattr(obj, key, None)), value)
-
-    def Reset(self):
-        """tets that reset FileStora data"""
-        FileStorage._FileStorage__object = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+    def test_attr(self):
+        """test attributes"""
+        attributes = {'name': str}
+        new_obj = Amenity()
+        for k, value in attributes.items():
+            self.assertTrue(hasattr(new_obj, k))
+            self.assertEqual(type(getattr(new_obj, k, None)), value)
 
 
 if __name__ == "__main__":
