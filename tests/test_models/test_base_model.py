@@ -37,14 +37,6 @@ class TestBaseModel(unittest.TestCase):
         class_1 = BaseModel(__class__='test', id='555666777')
         self.assertEqual(type(class_1), BaseModel)
 
-    def testKwargs(self):
-        """Test kwargs in BaseModel"""
-        class_2 = BaseModel(name="prueba", age=15)
-        test_dict = class_2.to_dict()
-        attributes = ["name", "age", "__class__"]
-        attr_dict = list(test_dict.keys())
-        self.assertCountEqual(attr_dict, attributes)
-
     @mock.patch("models.storage")
     def testSave(self, mock_engine):
         """Test update to update_at"""
