@@ -58,7 +58,7 @@ class TestBaseModel(unittest.TestCase):
         """Test print with to_dict method"""
         self.Object.name = "Tulio"
         dic_obj = self.Object.to_dict()
-        attributes = ["id", "name", "crated_at", "updated_ at", "__class__"]
+        attributes = ["id", "name", "created_at", "updated_at", "__class__"]
         real_attr = list(dic_obj.keys())
         self.assertCountEqual(real_attr, attributes)
 
@@ -68,7 +68,7 @@ class TestBaseModel(unittest.TestCase):
         self.Object.name = "Tulio"
         dic_obj = self.Object.to_dict()
         self.assertEqual(dic_obj["name"], "Tulio")
-        self.assertEqual(dic_obj["crated_at"],
+        self.assertEqual(dic_obj["created_at"],
                          self.Object.created_at.strftime(time_format))
         self.assertEqual(dic_obj["updated_at"],
                          self.Object.updated_at.strftime(time_format))

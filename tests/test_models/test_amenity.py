@@ -17,14 +17,14 @@ class TestAmenity(unittest.TestCase):
 
     def tearDown(self):
         """reset storage and Tear down test"""
-        self.resetStorage()
+        self.Reset()
         pass
 
     def test_instance(self):
         """Test of instantiation of Amenity class"""
         obj = Amenity()
         self.assertIsInstance(obj, Amenity)
-        self.assertTrue(BaseModel, issubclass(type(obj)))
+        self.assertTrue(issubclass(type(obj), BaseModel))
         self.assertEqual("<class 'models.amenity.Amenity'>", str(type(obj)))
 
     def test_attribute(self):
@@ -32,10 +32,10 @@ class TestAmenity(unittest.TestCase):
         att = storage.attributes()["Amenity"]
         obj = Amenity()
         for key, value in att.items():
-            self.assertEqual(hasattr(obj, key))
-            self.assertTrue(type(getattr(obj, key, None)), value)
+            self.assertTrue(hasattr(obj, key))
+            self.assertEqual(type(getattr(obj, key, None)), value)
 
-    def test_reset(self):
+    def Reset(self):
         """tets that reset FileStora data"""
         FileStorage._FileStorage__object = {}
         if os.path.isfile(FileStorage._FileStorage__file_path):

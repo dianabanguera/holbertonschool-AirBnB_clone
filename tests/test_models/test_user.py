@@ -6,7 +6,6 @@ from datetime import datetime
 import os
 import unittest
 
-from attr import attributes
 from models.engine.file_storage import FileStorage
 from models import storage
 from models.user import User
@@ -20,7 +19,7 @@ class TestUser(unittest.TestCase):
         """Method setup"""
         pass
 
-    def resetStorage(self):
+    def Reset(self):
         """Method reset"""
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
@@ -28,7 +27,7 @@ class TestUser(unittest.TestCase):
 
     def tearDown(self):
         """Method tear"""
-        self.resetStorage()
+        self.Reset()
         pass
 
     def test_instance(self):
