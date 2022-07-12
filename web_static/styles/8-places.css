@@ -4,6 +4,7 @@
     margin-top: 20px;
     flex-flow: row wrap;
     justify-content: center;
+    align-items: center;
 }
 
 .places h1 {
@@ -17,7 +18,7 @@
     width: 390px;
     padding: 20px;
     margin: 20px;
-    border: #FF5A5F solid 1px;
+    border: 1px solid #FF5A5F;
     border-radius: 4px;
     grid-row-start: 2;
     display: flex;
@@ -32,6 +33,7 @@
     text-align: center;
     width: 75%;
     align-content: center;
+    margin:0 auto;
 }
 
 .price_by_night {
